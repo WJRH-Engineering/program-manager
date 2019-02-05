@@ -2,7 +2,7 @@ const express = require("express")
 const graphqlHTTP = require('express-graphql');
 const cors = require('cors')
 
-const fetch = require("node-fetch")
+const log = require('./log.js')
 
 const teal = require("./graphql.js")
 
@@ -18,24 +18,59 @@ app.use('/graphql', graphqlHTTP({
 
 app.listen(4000);
 
-const query = `
-	query {
-		programs(limit_to: 10) {
-			id
-		}
-	}
-`
 
-const test = async function(){
-	const req = fetch("http://localhost:4000/graphql", {
+
+const fetch = require("node-fetch")
+
+const run = async function(){
+	const url = `http://api.teal.cool/whoami`
+	const api_key = 'PoJbDelmqrcD/dX2WMKgPVE3OJ+38IAAlNeIE3NMIcvX4FHlahhQj7HI5vc4gsHqPT1apBixMgSe+Lwopow0qA=='
+
+	const data = {
+		name: "TooManyCooks",
+		shortname: "tooooo-mannny-cooooks"
+		// "owners": ["connorwiniarczyk@gmail.com"],
+		// "organizations": ["wjrh"],
+		// "stream": "http://wjrh.org:8000/WJRHlow"
+	}
+
+	console.log(JSON.stringify(data))
+
+	const request = fetch(url, {
 		headers: {
 			'Content-Type': 'application/json',
+			'teal-api-key': api_key
 		},
-		body: JSON.stringify({query: query, raw: true}),
-		method: "POST"
-	}).then(res => res.json())
+		// method: "POST",
+		// body: JSON.stringify(data)
+	})
+	.then(res => res.json())
 
-	console.log(await req)
+	const result = await request
+	console.log(result)
 }
 
-test()
+run()
+
+// const test_query = `
+// 	query {
+// 		programs(limit_to: 10) {
+// 			shortname
+// 		}
+// 	}`
+
+// const test = async function(){
+// 	const req = fetch("http://localhost:4000/graphql", {
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 		},
+// 		body: JSON.stringify({query: test_query, raw: true}),
+// 		method: "POST"
+// 	}).then(res => res.json())
+
+// 	log.debug('performing a brief test...')
+// 	const result = await req
+// 	console.log(result.error || result.data)
+// }
+
+// test()

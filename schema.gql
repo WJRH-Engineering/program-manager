@@ -9,6 +9,16 @@ type Query {
 	): [Program]
 },
 
+type Mutation {
+	new_program(input: NewProgram): Program
+}
+
+input NewProgram {
+	name: String,
+	author: String,
+	owners: [String]
+}
+
 type Program {
 	active: Boolean,
 	author: String,
