@@ -1,6 +1,6 @@
 type Query {
-	program(shortname: String): Program,
-	episode(id: String): Episode,
+	program(shortname: String!): Program,
+	episode(id: String!): Episode,
 
 	programs(
 		search_param: String,

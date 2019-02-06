@@ -58,8 +58,14 @@ resolver.episode = async function({ id }){
 	const episode = await teal.fetch(`episodes/${id}`)
 }
 
-resolver.new_program = async function({ name, author, owners }){
-	
+resolver.new_program = async function({ input }){
+	const [ err, result ] = await to(teal.make_program(input))
+
+	if(err) {
+		throw err
+	}
+
+	return result
 }
 
 exports.schema = schema

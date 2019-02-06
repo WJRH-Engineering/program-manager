@@ -23,34 +23,38 @@ app.listen(4000);
 const fetch = require("node-fetch")
 
 const run = async function(){
-	const url = `http://api.teal.cool/whoami`
+	const url = `https://api.teal.cool/programs/`
 	const api_key = 'PoJbDelmqrcD/dX2WMKgPVE3OJ+38IAAlNeIE3NMIcvX4FHlahhQj7HI5vc4gsHqPT1apBixMgSe+Lwopow0qA=='
 
 	const data = {
-		name: "TooManyCooks",
-		shortname: "tooooo-mannny-cooooks"
+		name: "Test hello",
+		shortname: "tes-t-hello",
+		author: "meme",
+		
 		// "owners": ["connorwiniarczyk@gmail.com"],
 		// "organizations": ["wjrh"],
 		// "stream": "http://wjrh.org:8000/WJRHlow"
 	}
 
-	console.log(JSON.stringify(data))
+	// console.log(JSON.stringify(data))
 
 	const request = fetch(url, {
 		headers: {
 			'Content-Type': 'application/json',
 			'teal-api-key': api_key
 		},
-		// method: "POST",
-		// body: JSON.stringify(data)
+		method: "POST",
+		body: JSON.stringify(data)
 	})
-	.then(res => res.json())
+	.then(res => {
+		return res.text()
+	})
 
-	const result = await request
-	console.log(result)
+	// const result = await request
+	// console.log(result)
 }
 
-run()
+// run()
 
 // const test_query = `
 // 	query {
