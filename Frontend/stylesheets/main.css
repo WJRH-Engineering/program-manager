@@ -1,0 +1,117 @@
+html {
+	font-family: sans-serif;
+}
+
+body{
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+
+	padding: 20vh;
+	box-sizing: border-box;
+
+	height: 100vh;
+
+	background: #81FBFF; /* It's teal, get it ? */
+}
+
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.nav--main {
+	background: #E0E0E0;
+	border: 1px solid black;
+	border-bottom: none;
+	border-radius: 1rem 1rem 0 0;
+
+	padding: 0 2rem;
+
+	display: flex;
+	align-items: center;
+}
+
+.nav__title {
+	float: left;
+}
+
+.nav__searchbar {
+	float: left;
+	height: 50%;
+	margin-left: 4rem;
+}
+
+.main-window {
+	border: 1px solid black;
+	border-top: none;
+
+	/* Child Layout */
+ 	display: flex;
+	flex-direction: row;
+	justify-content: space-around; 
+
+	/*position: absolute;*/
+	/*top: 50vh;*/
+	/*left: 50vw;*/
+	/*transform: translateX(-50%) translateY(-50%);*/
+	
+	/*width: 90vw;*/
+	height: 80vh;
+
+	background: #fff;
+	border-radius: 0 0 1rem 1rem;
+}
+
+.program-list {
+	width: 40%;
+	max-height: 100%;
+	overflow-y: scroll;
+}
+
+.program-list li {
+	padding: 1rem 0;
+	border-bottom: 1px solid black;
+}
+
+.program-list li:last-child{
+	border-bottom: none;
+}
+
+.list__program-link {}
+
+.program-details {
+	width: 60%;
+	margin-left: 3rem;
+}
+
+.program-details__description{
+	margin-left: 1.5rem;
+}
+
+.btn {
+	cursor: pointer;
+}
+
+.btn.btn--submit {
+	background: #00C705;
+	color: #fff;
+	padding: .5rem 1rem;
+	border-radius: 8px;
+}
+
+a, li, button {
+	all: unset;
+}
+
+li {
+	display: block;
+}
+
+a {
+	cursor: pointer;
+}

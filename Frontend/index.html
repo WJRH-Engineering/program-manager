@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title> Program Manager </title>
+
+		<script type="text/javascript" src="scripts/utils.js"></script>
+		<script type="text/javascript" src="scripts/dom_templates.js"></script>
+		<script type="text/javascript" src="scripts/main.js"></script>
+
+		<link rel="stylesheet" href="/stylesheets/main.css">		
+	</head>
+	<body>
+
+		<nav class="nav--main">
+			<h1 class="nav__title clearfix">
+				<a href="#">Programs</a>
+			</h1>
+
+			<input class="nav__searchbar" type="text" placeholder="Search">
+		</nav>
+		<div class="main-window">
+			<ul class="program-list">
+
+			</ul>
+
+			<form class="program-details">
+				<h2><label for="">Name: </label><span class="program-details__name" data-field="name" contenteditable="true">Da Name</span></h2>
+				<h3>
+					<label for="">
+						Author:
+					</label>
+					<span class="program-details__name" data-field="name" contenteditable="true">Da Author</span>
+				</h3>
+				<p>
+					<label for="">Image URL: </label>
+					<span program-details__name" data-field="name" contenteditable="true">http://url.org</span>
+				</p>			
+				<label for="">
+					Description: 
+				</label>
+				<p class="program-details__description" data-field="description" contenteditable="true">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores facere sapiente architecto, nam, porro magnam illo labore distinctio deleniti numquam neque tenetur fugit laborum amet explicabo. Omnis repellat tenetur, vitae, officia illo commodi minima, corporis earum, maiores laborum maxime unde?
+				</p>
+				<button class="program-details__submit btn btn--submit">Submit</button>
+			</form>
+		</div>
+	</body>
+</html>

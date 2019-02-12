@@ -71,6 +71,9 @@ root.new_program = async function({ input }){
 }
 
 root.edit_program = async function({ shortname, data }){
+	console.log(shortname)
+	console.log(data)
+
 	await teal.edit_program(shortname, data)
 	teal.clear_cache()
 	const updated = await root.program({shortname: data.shortname || shortname})
