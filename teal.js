@@ -19,8 +19,20 @@ exports.fetch = async function(path) {
 	} else {
 		log.info(`cache miss for url: ${url}`)
 
-		const request = fetch(url).then(res => res.json())
-		const data = await request
+		const request = fetch(url)
+		.then(res => {
+			if(res.status == 200){
+				return res.json()
+			} else {
+				throw new Error(`request failed with status code: ${res.status}: ${res.statusText}`)
+			}
+		})
+		const [ err, data ] = await to(request)
+
+		if(err) {
+			log.error(err.message)
+			throw err
+		}
 
 		cache.set(url, data) // populate the cache
 		return data
@@ -73,8 +85,37 @@ exports.make_program = async function(input){
 	return result
 }
 
+exports.edit_program = async function(shortname, input){
+	const [error, program] = await to(exports.fetch(`programs/${shortname}`))
 
+	if(error) {
+		log.error(error.message)
+		throw error
+	}
 
+	console.log(program)
 
+	const request = fetch(`${TEAL_URL}/programs/${shortname}`, {
+		headers: {
+			'Content-Type': 'application/json',
+			'teal-api-key': api_key
+		},
+		method: "POST",
+		body: JSON.stringify({...program, ...input})
+	})
+	.then(res => {
+		if(res.status == 200) {
+			return res.json()
+		} else {
+			throw new Error(`\n url: ${TEAL_URL}/programs/${shortname} \n Request failed with status code ${res.status}: ${res.statusText}`)
+		}
+	})
+
+	const [ err, result ] = await to(request)
+
+	if(err) log.error(err.message)
+}
+
+exports.edit_program('tests2', {name: 'Name2'})
 
 

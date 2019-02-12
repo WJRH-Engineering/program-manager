@@ -10,7 +10,8 @@ type Query {
 },
 
 type Mutation {
-	new_program(input: NewProgram): Program
+	new_program(input: NewProgram): Program,
+	edit_program(input: NewProgram): Program
 }
 
 input NewProgram {

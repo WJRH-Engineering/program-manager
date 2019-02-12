@@ -9,14 +9,14 @@ const { to } = require('utils')
 const schema_text = fs.readFileSync("./schema.gql").toString()
 const schema = graphql.buildSchema(schema_text)
 
-const resolver = {}
+const root = {}
 
-resolver.program = async function(args) {
+root.program = async function(args) {
 	const program = await teal.fetch(`programs/${args.id || args.shortname}`)
 	return program
 }
 
-resolver.programs = async function({ search_param, limit_to, deep }) {
+root.programs = async function({ search_param, limit_to, deep }) {
 	//get programs from teal
 	let [err, programs] = await to(teal.fetch(`organizations/wjrh`))
 
@@ -54,23 +54,23 @@ resolver.programs = async function({ search_param, limit_to, deep }) {
 	return programs
 }
 
-resolver.episode = async function({ id }){
+root.episode = async function({ id }){
 	const episode = await teal.fetch(`episodes/${id}`)
 }
 
-resolver.new_program = async function({ input }){
+root.new_program = async function({ input }){
 	const [ err, result ] = await to(teal.make_program(input))
-
-	if(err) {
-		throw err
-	}
-
+	if(err) throw err
 	return result
 }
 
+root.edit_program = async function({ input }){
+	
+}
+
 exports.schema = schema
-exports.resolver = resolver
+exports.root = root
 
 exports.query = function(query){
-	return graphql.graphql(schema, query, resolver)
+	return graphql.graphql(schema, query, root)
 }
