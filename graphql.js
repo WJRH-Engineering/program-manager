@@ -16,9 +16,15 @@ root.program = async function(args) {
 	return program
 }
 
-root.programs = async function({ search_param, limit_to, deep }) {
+root.programs = async function({ search_param, limit_to, deep, no_cache }) {
+	if(no_cache) {
+		teal.clear_cache()
+	}
+
 	//get programs from teal
 	let [err, programs] = await to(teal.fetch(`organizations/wjrh`))
+
+	console.log(search_param)
 
 	if(err) {
 		log.error(err.message)
@@ -64,8 +70,12 @@ root.new_program = async function({ input }){
 	return result
 }
 
-root.edit_program = async function({ input }){
-	
+root.edit_program = async function({ shortname, data }){
+	await teal.edit_program(shortname, data)
+	teal.clear_cache()
+	const updated = await root.program({shortname: data.shortname || shortname})
+
+	return updated
 }
 
 exports.schema = schema

@@ -5,19 +5,42 @@ type Query {
 	programs(
 		search_param: String,
 		limit_to: Int,
-		deep: Boolean = false
+		deep: Boolean = false,
+		no_cache: Boolean = false
 	): [Program]
 },
 
 type Mutation {
 	new_program(input: NewProgram): Program,
-	edit_program(input: NewProgram): Program
+	edit_program(shortname: String!, data: UpdateProgram): Program
 }
 
 input NewProgram {
 	name: String,
 	author: String,
 	owners: [String]
+}
+
+input UpdateProgram {
+	active: Boolean,
+	author: String,
+	copyright: String,
+	cover_image: String,
+	description: String,
+	explicit: Boolean,
+	image: String,
+	itunes_categories: [String],
+	language: String,
+	name: String,
+	organizations: [String],
+	owners: [String],
+	redirect_url: [String],
+	scheduled_time: String,
+	shortname: String,
+	stream: String,
+	subtitle: String,
+	tags: String,
+	id: String,
 }
 
 type Program {

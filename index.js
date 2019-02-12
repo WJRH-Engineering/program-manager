@@ -12,7 +12,7 @@ app.use(cors())
 
 app.use('/graphql', graphqlHTTP({
   schema: teal.schema,
-  rootValue: teal.resolver,
+  rootValue: teal.root,
   graphiql: true,
 }));
 

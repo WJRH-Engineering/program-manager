@@ -9,6 +9,10 @@ const cache = new NodeCache()
 const TEAL_URL = "https://api.teal.cool"
 const api_key = 'PoJbDelmqrcD/dX2WMKgPVE3OJ+38IAAlNeIE3NMIcvX4FHlahhQj7HI5vc4gsHqPT1apBixMgSe+Lwopow0qA=='
 
+exports.clear_cache = function() {
+	cache.flushAll()
+}
+
 exports.fetch = async function(path) {
 	const url = `${TEAL_URL}/${path}`
 	const cached_data = cache.get(url)
@@ -57,8 +61,6 @@ exports.make_program = async function(input){
 	// give priority to input on key collision
 	const program = { ...defaults, ...input }
 
-	console.log(JSON.stringify(program))
-
 	const request = fetch(`${TEAL_URL}/programs/`,{
 		headers: {
 			'Content-Type': 'application/json',
@@ -75,6 +77,7 @@ exports.make_program = async function(input){
 		}
 	})
 
+	// make the request to teal
 	const [ err, result ] = await to(request)
 
 	if(err) {
@@ -93,7 +96,7 @@ exports.edit_program = async function(shortname, input){
 		throw error
 	}
 
-	console.log(program)
+	// console.log(program)
 
 	const request = fetch(`${TEAL_URL}/programs/${shortname}`, {
 		headers: {
@@ -114,8 +117,8 @@ exports.edit_program = async function(shortname, input){
 	const [ err, result ] = await to(request)
 
 	if(err) log.error(err.message)
+
+	return result.data
 }
 
-exports.edit_program('tests2', {name: 'Name2'})
-
-
+// exports.edit_program('tests2', {name: 'Name2'})
