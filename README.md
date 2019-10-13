@@ -20,10 +20,10 @@ query{
   }
 }
 ```
-Get the audio url and publishing date of every episode belonging to the program "sendnudes"
+Get the audio url and publishing date of every episode belonging to the program "vbb"
 ```graphql
 query{
-  program(shortname: "sendnudes"){
+  program(shortname: "vbb"){
     episodes{
       audio_url,
       pubdate
