@@ -8,6 +8,8 @@ const js_search = require("js-search")
 const cache = new NodeCache()
 
 const cached_fetch = async function(url){
+	console.log(cache.getStats())
+
 	const cached = cache.get(url)
 
 	if(cached != undefined) {
@@ -48,7 +50,7 @@ root.programs = async function({ search_param, limit_to, deep }) {
 
 	 	programs = search.search(search_param)
 
-	 	console.log(search)
+	 	// console.log(search)
 	}
 	
 	// limit size of results if needed
