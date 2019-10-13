@@ -1,9 +1,9 @@
 const express = require("express")
 const graphqlHTTP = require('express-graphql')
 const cors = require('cors')
+const path = require('path')
 
-const fetch = require("node-fetch")
-
+const log = require('./log.js')
 const teal = require("./graphql.js")
 
 const app = express();
@@ -11,31 +11,17 @@ const app = express();
 app.use(cors())
 
 app.use('/graphql', graphqlHTTP({
-	schema: teal.schema,
-	rootValue: teal.resolver,
-	graphiql: true,
+  schema: teal.schema,
+  rootValue: teal.root,
+  graphiql: true,
 }));
 
+const public = path.join(__dirname, 'Frontend')
+
+app.get('/', function(req, res){
+	res.sendFile(`${public}/index.html`)
+})
+
+app.use('/', express.static(public))
+
 app.listen(4000);
-
-// const query = `
-// 	query {
-// 		programs(limit_to: 10) {
-// 			id
-// 		}
-// 	}
-// `
-
-// const test = async function(){
-// 	const req = fetch("http://localhost:4000/graphql", {
-// 		headers: {
-// 			'Content-Type': 'application/json',
-// 		},
-// 		body: JSON.stringify({query: query, raw: true}),
-// 		method: "POST"
-// 	}).then(res => res.json())
-
-// 	console.log(await req)
-// }
-
-// test()
