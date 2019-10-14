@@ -18,7 +18,11 @@ const remote = new stream.Writable({
 				'Content-Type': 'application/json'
 			},
 			method: "POST",
-			body: JSON.stringify({ event: "LOG", data: chunk.toString('utf8'), sender: "(N)EAL" })
+			body: JSON.stringify({ 
+				event: "LOG",
+				data: chunk.toString('utf8'),
+				sender: "(N)EAL" 
+			})
 		}).catch(err => {})
 		next()
 	}

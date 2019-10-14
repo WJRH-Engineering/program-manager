@@ -4,7 +4,10 @@ const NodeCache = require("node-cache")
 
 const { to } = require('utils')
 
-const cache = new NodeCache()
+const cache = new NodeCache({
+	stdTTl: 3600, // keys should expire after an hour
+	deleteOnExpire: true,
+})
 
 const TEAL_URL = "https://api.teal.cool"
 const api_key = 'PoJbDelmqrcD/dX2WMKgPVE3OJ+38IAAlNeIE3NMIcvX4FHlahhQj7HI5vc4gsHqPT1apBixMgSe+Lwopow0qA=='
@@ -23,6 +26,7 @@ exports.fetch = async function(path) {
 	} else {
 		log.info(`cache miss for url: ${url}`)
 
+		// fetch data from teal
 		const request = fetch(url)
 		.then(res => {
 			if(res.status == 200){
@@ -31,7 +35,8 @@ exports.fetch = async function(path) {
 				throw new Error(`request failed with status code: ${res.status}: ${res.statusText}`)
 			}
 		})
-		const [ err, data ] = await to(request)
+
+		const [err, data] = await to(request)
 
 		if(err) {
 			log.error(err.message)
